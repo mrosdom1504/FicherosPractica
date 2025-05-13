@@ -43,7 +43,7 @@ public class Combinacion {
     public static void ej2(){
         try{
             ObjectMapper mapper = new ObjectMapper();
-            BufferedReader br = new BufferedReader(new FileReader(""));
+            BufferedReader br = new BufferedReader(new FileReader("src/SerializarYJsonCombinados/Archivos/empleados.csv"));
             String linea;
             List<Empleado> empleados = new ArrayList<>();
             boolean esPrimeraLinea = true;
