@@ -1,10 +1,11 @@
 package Ficheros;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class Ficheros {
     public static void main(String[] args) {
-        ej4();
+        ej8();
     }
 
     //Ejercicio 1: Leer un archivo de texto
@@ -72,7 +73,79 @@ public class Ficheros {
         }
     }
 
-//Ejercicio 6: Eliminar un archivo
-//Desarrolla un programa que elimine un archivo llamado archivo_a_eliminar.txt de tu sistema de Ficheros.archivos.
+    //Ejercicio 6: Eliminar un archivo
+    //Desarrolla un programa que elimine un archivo llamado archivo_a_eliminar.txt de tu sistema de Ficheros.archivos.
+    public static void ej5() {
+        File archivo = new File("src/Ficheros/archivos/archivo_a_eliminar.txt");
+        if (archivo.exists()) {
+            if (archivo.delete()) {
+                System.out.println("Archivo eliminado");
+            } else
+                System.out.println("Archivo no eliminado");
+        } else {
+            System.out.println("Archivo no encontrado o no existe");
+        }
+    }
 
+    //Ejercicio 21: Buscar una palabra en un archivo
+    //Escribe un programa que busque una palabra específica dentro de un archivo de texto y devuelva en qué líneas aparece.
+    public static void ej6() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("src/Ficheros/archivos/palabra.txt"));
+            String linea;
+            int contador = 1;
+            while ((linea = br.readLine()) != null) {
+                String[] palabras = linea.split("//s+");
+                for (String palabra : palabras) {
+                    if (palabra.equals("pepe")) {
+                        System.out.println("en la linea " + contador + " se encuentra la palabra pepe");
+                    }
+                }
+                contador++;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    //Ejercicio 22: Reemplazar texto en un archivo
+    //Crea un programa que lea un archivo y reemplace todas las apariciones de una palabra por otra, escribiendo el resultado en un nuevo archivo.
+    public static void ej7() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("src/Ficheros/archivos/textoCambiado.txt"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("src/Ficheros/archivos/copiarTextoCambiado.txt"));
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] palabras = linea.split(" ");
+                linea.replaceAll("\\bpepe\\b", "caca");
+                bw.write(linea);
+                bw.newLine();
+            }
+            br.close();
+            bw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Ejercicio 23: Copiar una imagen binaria
+    //Escribe un programa que copie una imagen (.jpg o .png) usando FileInputStream y FileOutputStream.
+    public static void ej8() {
+        try {
+            FileInputStream fis = new FileInputStream("src/Ficheros/archivos/img.png");
+            FileOutputStream fos = new FileOutputStream("src/Ficheros/archivos/imgcopia.png");
+            fis.transferTo(fos);
+            fis.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

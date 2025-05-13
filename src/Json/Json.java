@@ -1,5 +1,6 @@
 package Json;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -11,7 +12,7 @@ import java.util.List;
 
 public class Json {
     public static void main(String[] args) {
-        ej2();
+        ej5();
     }
 
     //Ejercicio 7: Serializar un objeto a JSON
@@ -57,7 +58,7 @@ public class Json {
 
         try {
             // Leer JSON y convertir a lista de personas
-            List<Persona> personas = mapper.readValue(archivo, new TypeReference<List<Persona>>() {});
+            List<Persona> personas = mapper.readValue(archivo, mapper.getTypeFactory().constructCollectionType(List.class,Persona.class));
 
             // Buscar por nombre y modificar edad (por ejemplo: cambiar edad de "Ana")
             for (Persona persona : personas) {
@@ -71,6 +72,39 @@ public class Json {
             System.out.println("Archivo modificado correctamente.");
 
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //Ejercicio 24: Crear archivo JSON manualmente desde consola
+    //Haz un programa que pida por consola el nombre, edad y dirección de varias personas, las almacene en una lista y luego la escriba a un archivo personas.json.
+    public static void ej4(){
+        ObjectMapper mapper = new ObjectMapper();
+        Persona persona1 = new Persona("ead","dsad",21);
+        Persona persona2 = new Persona("ead","dsad",21);
+        Persona persona3 = new Persona("ead","dsad",21);
+        List<Persona> personas = new ArrayList<>();
+        personas.add(persona1);
+        personas.add(persona2);
+        personas.add(persona3);
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        try{
+            mapper.writeValue(new File("src/Json/personas.json"),personas);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    //Ejercicio 25: Leer un JSON con estructura compleja
+    //Crea una estructura JSON anidada (por ejemplo, persona con lista de teléfonos y direcciones) y escribe un programa que la lea y la convierta en objetos Java.
+    public static void ej5(){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        try{
+            List<Persona> personas = mapper.readValue(new File("src/Json/personas.json"),mapper.getTypeFactory().constructCollectionType(List.class,Persona.class));
+            System.out.println(personas);
+        }catch (JsonProcessingException e){
+            e.printStackTrace();
+        }catch (IOException e){
             e.printStackTrace();
         }
     }
