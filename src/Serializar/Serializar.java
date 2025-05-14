@@ -1,8 +1,11 @@
 package Serializar;
 
 import Json.Persona;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +13,7 @@ import java.util.Map;
 
 public class Serializar {
     public static void main(String[] args) {
-        ej5();
+        ej7();
     }
     //Ejercicio 12: Serializar un objeto
     //Escribe un programa que serialice un objeto Persona (con nombre, edad) a un archivo persona.ser utilizando ObjectOutputStream.
@@ -97,8 +100,51 @@ public class Serializar {
             e.printStackTrace();
         }
     }
-    //Ejercicio 29: Cambiar la versión de una clase serializada
-    //Añade un campo nuevo a una clase que ya fue serializada. Ejecuta el programa y analiza qué ocurre (útil para entender serialVersionUID).
-    //
+    //Serializar y deserializar imagen
+    public static void ej6() {
+        File imagen = new File("src/Ficheros/archivos/img_1.png");
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/Ficheros/archivos/img_1.ser"));
+            byte[] bytes = Files.readAllBytes(imagen.toPath());
+            oos.writeObject(bytes);
+            oos.close();
 
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/Ficheros/archivos/img_1.ser"));
+            byte[] image = (byte[]) ois.readObject();
+            Files.write(imagen.toPath(), image);
+            ois.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+    //serializar kibab
+    public static void ej7(){
+        try{
+            Kibab kibab = new Kibab("Carne de cerdo","Salsa blanca");
+            Kibab kibab1 = new Kibab("Carne dasdas cerdo","Salsa asdblanca");
+            List<Kibab> kibabs = new ArrayList<>();
+            kibabs.add(kibab);
+            kibabs.add(kibab1);
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/Serializar/Archivos/kibab.ser"));
+            oos.writeObject(kibabs);
+            oos.close();
+
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/Serializar/Archivos/kibab.ser"));
+            System.out.println(ois.readObject());
+            ois.close();
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+            mapper.writeValue(new File("src/Serializar/Archivos/kibab.json"), kibabs);
+            List<Kibab> listaKibabs = mapper.readValue(new File("src/Serializar/Archivos/kibab.json"), mapper.getTypeFactory().constructCollectionType(List.class, Kibab.class));
+            System.out.println(listaKibabs);
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (ClassNotFoundException e){
+            e.printStackTrace();
+        }
+    }
 }
