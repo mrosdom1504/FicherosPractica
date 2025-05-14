@@ -17,8 +17,8 @@ public class Main {
             System.out.println("2.Eliminar Persona");
             System.out.println("3.Modificar Persona");
             System.out.println("4.Exportar personas a json");
-            System.out.println("5.Mostrar personas");
-            System.out.println("6.Serializar personas");
+            System.out.println("5.Serializar personas");
+            System.out.println("6.Mostrar personas");
             System.out.println("7.Salir");
             System.out.println("Elija una opcion: ");
             int opcion;
@@ -41,10 +41,10 @@ public class Main {
                 case 4:
                     Persona.exportarJson();
                     break;
-                case 5:
+                case 6:
                     System.out.println(Persona.getListaPersonas());
                     break;
-                case 6:
+                case 5:
                     Persona.serializar();
                     break;
                 case 7:
