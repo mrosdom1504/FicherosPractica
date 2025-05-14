@@ -42,10 +42,10 @@ public class Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "Persona{" +
-                "nombre='" + nombre + '\'' +
-                ", sexo='" + sexo + '\'' +
-                ", edad=" + edad +
+        return  "{"+"\n"+
+                "nombre : " + nombre + '\n' +
+                "sexo : " + sexo + '\n' +
+                "edad : " + edad +"\n"+
                 '}';
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Combinacion {
     public static void main(String[] args) {
-        ej1();
+        ej4();
     }
     //Ejercicio 18: Leer un archivo JSON y serializar a un objeto
     //Desarrolla un programa que lea un archivo JSON llamado persona.json, deserialice el contenido en un objeto Persona, y luego serialice ese objeto a un archivo persona_serializada.ser.
@@ -20,13 +20,13 @@ public class Combinacion {
         try {
             // Leer el archivo JSON y convertirlo en objeto Persona
             Persona persona = mapper.readValue(
-                    new File("src/SerializarYJsonCombinados/Archivos/persona.json"),
+                    new File("src/SerializarYJsonCombinados/Crud.Archivos/persona.json"),
                     Persona.class);
             System.out.println("Leído desde JSON: " + persona);
 
             // Serializar a archivo .ser
             ObjectOutputStream oos = new ObjectOutputStream(
-                    new FileOutputStream("src/SerializarYJsonCombinados/Archivos/persona_serializada.ser")
+                    new FileOutputStream("src/SerializarYJsonCombinados/Crud.Archivos/persona_serializada.ser")
             );
             oos.writeObject(persona);
             oos.close();
@@ -43,7 +43,7 @@ public class Combinacion {
     public static void ej2(){
         try{
             ObjectMapper mapper = new ObjectMapper();
-            BufferedReader br = new BufferedReader(new FileReader("src/SerializarYJsonCombinados/Archivos/empleados.csv"));
+            BufferedReader br = new BufferedReader(new FileReader("src/SerializarYJsonCombinados/Crud.Archivos/empleados.csv"));
             String linea;
             List<Empleado> empleados = new ArrayList<>();
             boolean esPrimeraLinea = true;
@@ -71,7 +71,33 @@ public class Combinacion {
     }
     //Ejercicio 31: Leer JSON → Modificar → Serializar
     //Lee un JSON, cambia uno o más atributos de los objetos y luego serialízalos como objetos Java a un archivo .ser.
-    //
+    public static void ej3(){
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        try{
+            List<Persona> personas = mapper.readValue(new File(""),mapper.getTypeFactory().constructCollectionType(List.class,Persona.class));
+
+            for(Persona persona : personas){
+                if(persona.getNombre().equals("pepe")){
+                    persona.setEdad(11);
+                }
+            }
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(""));
+            oos.writeObject(personas);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
     //Ejercicio 32: Leer JSON → Mostrar con formato bonito en consola
     //Lee un archivo JSON y muéstralo por consola con sangrías usando Jackson (mapper.enable(SerializationFeature.INDENT_OUTPUT)).
+    public static void ej4(){
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            Persona persona = mapper.readValue(new File("src/SerializarYJsonCombinados/Crud.Archivos/persona.json"),Persona.class);
+
+            System.out.println(persona);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }

@@ -17,7 +17,7 @@ public class Serializar {
     public static void ej1(){
         Persona persona = new Persona("asd","asd",12);
         try{
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Users\\usuario\\IdeaProjects\\FicherosPractica\\src\\Serializar\\Archivos\\persona.ser"));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Users\\usuario\\IdeaProjects\\FicherosPractica\\src\\Serializar\\Crud.Archivos\\persona.ser"));
             oos.writeObject(persona);
             oos.close();
         }catch (IOException e){
@@ -28,7 +28,7 @@ public class Serializar {
     //Desarrolla un programa que lea el archivo persona.ser y deserialice el objeto Persona. Luego, muestra el contenido del objeto en la consola.
     public static void ej2(){
         try{
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Users\\usuario\\IdeaProjects\\FicherosPractica\\src\\Serializar\\Archivos\\persona.ser"));
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\Users\\usuario\\IdeaProjects\\FicherosPractica\\src\\Serializar\\Crud.Archivos\\persona.ser"));
             System.out.println(ois.readObject());
             ois.close();
         }catch (IOException e){
@@ -48,7 +48,7 @@ public class Serializar {
         personas.add(persona1);
         personas.add(persona2);
         try{
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Users\\usuario\\IdeaProjects\\FicherosPractica\\src\\Serializar\\Archivos\\personas.ser"));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("C:\\Users\\usuario\\IdeaProjects\\FicherosPractica\\src\\Serializar\\Crud.Archivos\\personas.ser"));
             oos.writeObject(personas);
             oos.close();
         }catch (IOException e){
@@ -59,7 +59,7 @@ public class Serializar {
     //Crea una clase Producto con nombre y precio. Usa un Map<String, Producto> y serialízalo a un archivo productos.ser.
     public static void ej4(){
         try{
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/Serializar/Archivos/productos.ser"));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/Serializar/Crud.Archivos/productos.ser"));
             Map<String,Producto> productos = new HashMap<>();
             productos.put("Agua",new Producto("asdas",123.123));
             productos.put("Agrdfua",new Producto("asdfsdfas",122133.123));
@@ -76,8 +76,8 @@ public class Serializar {
     //Serializa tres objetos de distintas clases (Persona, Producto, Libro) en un solo archivo. Luego deserialízalos.
     public static void ej5(){
         try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/Serializar/Archivos/DistintasClases.ser"));
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/Serializar/Archivos/DistintasClases.ser"));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/Serializar/Crud.Archivos/DistintasClases.ser"));
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/Serializar/Crud.Archivos/DistintasClases.ser"));
             Persona persona1 = new Persona("asd", "sad", 21);
             Persona persona2 = new Persona("asd", "sad", 21);
             Persona persona3 = new Persona("asd", "sad", 21);
