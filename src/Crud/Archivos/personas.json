@@ -1,5 +1,9 @@
 [ {
-  "nombre" : "dsf",
-  "sexo" : "sdf",
-  "edad" : 123
+  "nombre" : "asd",
+  "sexo" : "asd",
+  "edad" : 12
+}, {
+  "nombre" : "asdf",
+  "sexo" : "fd",
+  "edad" : 2112
 } ]

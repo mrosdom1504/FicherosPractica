@@ -3,13 +3,12 @@ package Crud;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Persona {
+public class Persona implements Serializable {
     private String nombre;
     private String sexo;
     private int edad;
@@ -26,20 +25,28 @@ public class Persona {
         listaPersonas.add(this);
     }
 
-    public static Persona crearPersona() {
-        System.out.println("Indique el nombre de la persona");
-        String nombre = sc.nextLine();
-        System.out.println("Indique el sexo de la persona");
-        String sexo = sc.nextLine();
-        System.out.println("Indique la edad de la persona");
-        int edad = sc.nextInt();
-        return new Persona(nombre, sexo, edad);
+    public static void crearPersona() {
+        int contador;
+        System.out.println("Cuantas personas quiere meter?");
+        contador = sc.nextInt();
+        while(contador>0){
+            contador--;
+            System.out.println("Indique el nombre de la persona");
+            sc.nextLine();
+            String nombre = sc.nextLine();
+            System.out.println("Indique el sexo de la persona");
+            String sexo = sc.nextLine();
+            System.out.println("Indique la edad de la persona");
+            int edad = sc.nextInt();
+            new Persona(nombre,sexo,edad);
+        }
     }
 
     public static void modificarPersona(String personaBuscada) {
         for (Persona p : listaPersonas) {
             if (p.getNombre().equals(personaBuscada)) {
                 System.out.println("Indique el nombre");
+                sc.nextLine();
                 p.setNombre(sc.nextLine());
                 System.out.println("Indique el sexo");
                 p.setSexo(sc.nextLine());
@@ -71,6 +78,15 @@ public class Persona {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static void serializar(){
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/Crud/Archivos/personas.ser"));
+            oos.writeObject(listaPersonas);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     public String getNombre() {
