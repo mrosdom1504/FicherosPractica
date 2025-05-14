@@ -13,6 +13,7 @@ public class ExploradorArchivos {
     public static File[] listarFichero() {
         File archivo = new File("resources/explorador");
         File[] archivos = archivo.listFiles();
+        assert archivos != null;
         for (File f : archivos){
             System.out.println(f);
         }
